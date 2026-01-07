@@ -53,7 +53,9 @@ async def handle_confirmation_callback(
 
     # TODO: Обработка подтверждений через агента
     await callback.answer("Подтверждение принято!")
-    if callback.message and hasattr(callback.message, 'edit_text'):
+
+    # Проверяем что message это Message, а не InaccessibleMessage
+    if callback.message and isinstance(callback.message, Message):
         try:
             await callback.message.edit_text("✅ Подтверждено\n(Обработка в разработке)")
         except Exception as e:
@@ -79,7 +81,9 @@ async def handle_edit_callback(
 
     # TODO: Обработка редактирования через агента
     await callback.answer()
-    if callback.message and hasattr(callback.message, 'answer'):
+
+    # Проверяем что message это Message, а не InaccessibleMessage
+    if callback.message and isinstance(callback.message, Message):
         try:
             await callback.message.answer("✏️ Начинаем редактирование\n(Функция в разработке)")
         except Exception as e:
@@ -105,7 +109,9 @@ async def handle_view_callback(
 
     # TODO: Получение и отображение деталей
     await callback.answer()
-    if callback.message and hasattr(callback.message, 'answer'):
+
+    # Проверяем что message это Message, а не InaccessibleMessage
+    if callback.message and isinstance(callback.message, Message):
         try:
             await callback.message.answer("👁️ Загружаю детали...\n(Функция в разработке)")
         except Exception as e:
