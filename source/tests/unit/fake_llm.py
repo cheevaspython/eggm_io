@@ -61,6 +61,31 @@ class SimpleFakeLLM(BaseChatModel):
         return "simple_fake"
 
 
+class StructuredOutputWrapper:
+    """Wrapper который имитирует поведение with_structured_output."""
+
+    def __init__(self, llm: "SimpleFakeStructuredLLM"):
+        self.llm = llm
+
+    async def ainvoke(self, input, config=None):
+        """Возвращает Pydantic объект напрямую (не через AIMessage)."""
+        if self.llm.current_index >= len(self.llm.responses):
+            response = self.llm.responses[-1] if self.llm.responses else {}
+        else:
+            response = self.llm.responses[self.llm.current_index]
+            self.llm.current_index += 1
+        return response
+
+    def invoke(self, input, config=None):
+        """Синхронная версия."""
+        if self.llm.current_index >= len(self.llm.responses):
+            response = self.llm.responses[-1] if self.llm.responses else {}
+        else:
+            response = self.llm.responses[self.llm.current_index]
+            self.llm.current_index += 1
+        return response
+
+
 class SimpleFakeStructuredLLM(BaseChatModel):
     """Fake LLM для structured output - возвращает Pydantic объекты."""
 
@@ -77,16 +102,8 @@ class SimpleFakeStructuredLLM(BaseChatModel):
         run_manager: Optional[CallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> ChatResult:
-        """Возвращает Pydantic объект напрямую."""
-        if self.current_index >= len(self.responses):
-            response = self.responses[-1] if self.responses else {}
-        else:
-            response = self.responses[self.current_index]
-            self.current_index += 1
-
-        # Для structured output возвращаем объект как есть
-        # (SupervisorService преобразует его сам)
-        message = AIMessage(content=response)
+        """Не используется для structured output."""
+        message = AIMessage(content="Not used for structured output")
         generation = ChatGeneration(message=message)
         return ChatResult(generations=[generation])
 
@@ -105,5 +122,5 @@ class SimpleFakeStructuredLLM(BaseChatModel):
         return "simple_fake_structured"
 
     def with_structured_output(self, schema, **kwargs):
-        """Возвращает себя - мы уже возвращаем structured output."""
-        return self
+        """Возвращает wrapper который при ainvoke возвращает Pydantic объект напрямую."""
+        return StructuredOutputWrapper(self)
