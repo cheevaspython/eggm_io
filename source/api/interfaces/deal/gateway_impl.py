@@ -50,7 +50,7 @@ class DealGatewayImpl(DealGatewayAbc):
             stmt = (
                 select(Deal)
                 .where(Deal.owner_crm_id == crm_user_id)
-                .order_by(Deal.created_at.desc())
+                .order_by(Deal.created_date.desc())
                 .limit(limit)
             )
             result = await self._session.execute(stmt)

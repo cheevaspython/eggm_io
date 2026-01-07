@@ -53,7 +53,7 @@ class ApplicationGatewayImpl(ApplicationGatewayAbc):
             stmt = (
                 select(Application)
                 .where(Application.owner_crm_id == crm_user_id)
-                .order_by(Application.created_at.desc())
+                .order_by(Application.created_date.desc())
                 .limit(limit)
             )
             result = await self._session.execute(stmt)
@@ -74,7 +74,7 @@ class ApplicationGatewayImpl(ApplicationGatewayAbc):
             stmt = (
                 select(Application)
                 .where(Application.application_type == application_type)
-                .order_by(Application.created_at.desc())
+                .order_by(Application.created_date.desc())
                 .limit(limit)
             )
             result = await self._session.execute(stmt)
