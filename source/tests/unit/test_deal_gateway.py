@@ -5,7 +5,7 @@
 Используем реальную тестовую БД без Mock.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from uuid import uuid4, UUID
 
 import pytest
@@ -45,7 +45,7 @@ async def sample_deal(test_db_session: AsyncSession) -> Deal:
 @pytest.fixture
 async def multiple_deals(test_db_session: AsyncSession) -> list[Deal]:
     """Создает несколько сделок для тестирования фильтрации и сортировки."""
-    now = datetime.now()
+    now = datetime.now(timezone.utc)
     deals = [
         Deal(
             crm_deal_id=2001,
@@ -283,7 +283,7 @@ class TestDealGatewayGetDealsForReminders:
         deals = await deal_gateway.get_deals_for_reminders(days_ahead=days_ahead)
 
         # Проверяем что все даты в пределах указанного периода
-        now = datetime.now()
+        now = datetime.now(timezone.utc)
         future_date = now + timedelta(days=days_ahead)
 
         for deal in deals:
@@ -390,7 +390,7 @@ class TestDealGatewayUpdate:
         sample_deal: Deal,
     ):
         """Обновление дат для напоминаний."""
-        now = datetime.now()
+        now = datetime.now(timezone.utc)
         new_loading = now + timedelta(days=5)
         new_payment = now + timedelta(days=10)
 
@@ -416,7 +416,7 @@ class TestDealGatewayUpdate:
         )
 
         # Очищаем сессию и загружаем заново из БД
-        await test_db_session.expire_all()
+        test_db_session.expire_all()
         deal_from_db = await deal_gateway.get_by_id(deal_id=sample_deal.id)
 
         assert deal_from_db is not None
