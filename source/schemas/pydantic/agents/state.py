@@ -4,6 +4,7 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+from source.db.models.choises.enum import TaskTypeChoises
 from source.types.model_id_uuid import ModelIdUuidType
 
 
@@ -87,6 +88,8 @@ class State(BaseModel):
     # Данные для работы агентов
     deal_data: Optional[DealData] = None
     application_data: Optional[ApplicationData] = None
+
+    task_type: Optional[TaskTypeChoises] = None
 
     # Результат работы агента
     result: Optional[str] = None

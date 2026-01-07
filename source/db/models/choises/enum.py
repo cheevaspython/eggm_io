@@ -75,3 +75,17 @@ class PermissionStatus(Enum):
             PermissionStatus.extended: "Расширенный",
         }
         return labels[self]
+
+
+class TaskTypeChoises(Enum):
+    confirm_agent = "confirm_agent"
+    edit_deal_agent = "edit_deal_agent"
+    reminder_agent = "reminder_agent"
+
+    def label(self):
+        labels = {
+            TaskTypeChoises.confirm_agent: "Агент подтверждения",
+            TaskTypeChoises.edit_deal_agent: "Агент редактирования сделок",
+            TaskTypeChoises.reminder_agent: "Агент напоминаний",
+        }
+        return labels[self]

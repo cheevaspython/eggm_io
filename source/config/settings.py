@@ -5,7 +5,7 @@ from pathlib import Path
 from urllib.parse import quote_plus
 from typing import Optional, Tuple
 
-from pydantic import BaseModel, PostgresDsn
+from pydantic import BaseModel, Field, PostgresDsn, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -251,6 +251,32 @@ class TelegramSettings(BaseModel):
     enabled: bool = True
 
 
+class OpenAiSettings(BaseModel):
+    api_key: SecretStr = SecretStr("")
+    model: str = "gpt-4o-mini"
+
+    def __init__(self, **data: str | SecretStr) -> None:
+        secret_path = "io_token"
+        gpt_api_key = self._read_secret_or_env(
+            secret_name=secret_path,
+            env_var_name="GPT_KEY",
+            default="",
+        )
+        data.setdefault("api_key", SecretStr(gpt_api_key))
+        super().__init__(**data)
+
+    @staticmethod
+    def _read_secret_or_env(
+        secret_name: str,
+        env_var_name: str,
+        default: str = "None",
+    ) -> str:
+        run_secret = Path("/run/secrets") / secret_name
+        if run_secret.exists() and run_secret.is_file():
+            return run_secret.read_text().strip()
+        return os.getenv(env_var_name, default)
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(".env.template", ".env"),
@@ -270,6 +296,7 @@ class Settings(BaseSettings):
     worker: WorkerSettings = WorkerSettings()
     jwt_token: JWTTokenSettings = JWTTokenSettings()
     redis: RedisTimeDestroySettings = RedisTimeDestroySettings()
+    openai: OpenAiSettings = Field(default_factory=OpenAiSettings)
     elastic: ElasticSettings = ElasticSettings()
     tg: TelegramSettings = TelegramSettings()
 
