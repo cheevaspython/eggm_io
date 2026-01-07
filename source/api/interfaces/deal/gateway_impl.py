@@ -6,7 +6,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from source.db.models.deal import Deal
-from source.db.gateways.deal.gateway_abc import DealGatewayAbc
+from source.api.interfaces.deal.gateway_abc import DealGatewayAbc
 from source.config.logging import logger
 
 

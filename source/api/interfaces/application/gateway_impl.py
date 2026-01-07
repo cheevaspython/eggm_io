@@ -5,7 +5,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from source.db.models.application import Application
-from source.db.gateways.application.gateway_abc import ApplicationGatewayAbc
+from source.api.interfaces.application.gateway_abc import ApplicationGatewayAbc
 from source.config.logging import logger
 
 

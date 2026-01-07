@@ -21,7 +21,12 @@ class EditDealAgentServiceImpl(EditDealAgentServiceAbc):
         prompt = self._edit_deal_prompts.procedural_edit_deal_prompt(state)
         response = await self._llm.ainvoke(prompt)
 
-        result = response.content if hasattr(response, "content") else str(response)
+        # Преобразуем response.content в строку
+        if hasattr(response, "content"):
+            content = response.content
+            result = str(content) if not isinstance(content, str) else content
+        else:
+            result = str(response)
 
         logger.info(f"[EDIT_DEAL_AGENT] Generated response: {result[:100]}...")
 
