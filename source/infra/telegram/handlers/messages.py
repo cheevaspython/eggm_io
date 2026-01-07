@@ -42,14 +42,22 @@ async def handle_confirmation_callback(
     Обработчик callback для подтверждений.
     Формат: confirm_{deal_id}_{action}
     """
-    logger.info(
-        f"[TELEGRAM] Confirmation callback from user_id={callback.from_user.id}, "
-        f"data={callback.data}"
-    )
+    if callback and callback.from_user:
+        logger.info(
+            f"[TELEGRAM] Confirmation callback from user_id={callback.from_user.id}, "
+            f"data={callback.data}"
+        )
+    else:
+        logger.debug("[TELEGRAM] Callback error - callback.from_user is None")
+        return
 
     # TODO: Обработка подтверждений через агента
     await callback.answer("Подтверждение принято!")
-    await callback.message.edit_text(f"✅ Подтверждено\n(Обработка в разработке)")
+    if callback.message and hasattr(callback.message, 'edit_text'):
+        try:
+            await callback.message.edit_text("✅ Подтверждено\n(Обработка в разработке)")
+        except Exception as e:
+            logger.warning(f"[TELEGRAM] Failed to edit message: {e}")
 
 
 @router.callback_query(F.data.startswith("edit_"))
@@ -60,14 +68,22 @@ async def handle_edit_callback(
     Обработчик callback для редактирования.
     Формат: edit_{deal_id}_{field}
     """
-    logger.info(
-        f"[TELEGRAM] Edit callback from user_id={callback.from_user.id}, "
-        f"data={callback.data}"
-    )
+    if callback and callback.from_user:
+        logger.info(
+            f"[TELEGRAM] Edit callback from user_id={callback.from_user.id}, "
+            f"data={callback.data}"
+        )
+    else:
+        logger.debug("[TELEGRAM] Callback error - callback.from_user is None")
+        return
 
     # TODO: Обработка редактирования через агента
     await callback.answer()
-    await callback.message.answer("✏️ Начинаем редактирование\n(Функция в разработке)")
+    if callback.message and hasattr(callback.message, 'answer'):
+        try:
+            await callback.message.answer("✏️ Начинаем редактирование\n(Функция в разработке)")
+        except Exception as e:
+            logger.warning(f"[TELEGRAM] Failed to send message: {e}")
 
 
 @router.callback_query(F.data.startswith("view_"))
@@ -78,14 +94,22 @@ async def handle_view_callback(
     Обработчик callback для просмотра деталей.
     Формат: view_{type}_{id}
     """
-    logger.info(
-        f"[TELEGRAM] View callback from user_id={callback.from_user.id}, "
-        f"data={callback.data}"
-    )
+    if callback and callback.from_user:
+        logger.info(
+            f"[TELEGRAM] View callback from user_id={callback.from_user.id}, "
+            f"data={callback.data}"
+        )
+    else:
+        logger.debug("[TELEGRAM] Callback error - callback.from_user is None")
+        return
 
     # TODO: Получение и отображение деталей
     await callback.answer()
-    await callback.message.answer("👁️ Загружаю детали...\n(Функция в разработке)")
+    if callback.message and hasattr(callback.message, 'answer'):
+        try:
+            await callback.message.answer("👁️ Загружаю детали...\n(Функция в разработке)")
+        except Exception as e:
+            logger.warning(f"[TELEGRAM] Failed to send message: {e}")
 
 
 @router.callback_query()
@@ -95,9 +119,13 @@ async def handle_unknown_callback(
     """
     Обработчик неизвестных callback
     """
-    logger.warning(
-        f"[TELEGRAM] Unknown callback from user_id={callback.from_user.id}, "
-        f"data={callback.data}"
-    )
+    if callback and callback.from_user:
+        logger.warning(
+            f"[TELEGRAM] Unknown callback from user_id={callback.from_user.id}, "
+            f"data={callback.data}"
+        )
+    else:
+        logger.debug("[TELEGRAM] Callback error - callback.from_user is None")
+        return
 
     await callback.answer("Неизвестная команда", show_alert=True)

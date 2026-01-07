@@ -1,4 +1,3 @@
-from enum import Enum
 from typing import Optional
 from datetime import datetime
 
@@ -6,28 +5,6 @@ from pydantic import BaseModel
 
 from source.db.models.choises.enum import TaskTypeChoises
 from source.types.model_id_uuid import ModelIdUuidType
-
-
-class AgentType(Enum):
-    """
-    Типы агентов в системе
-    """
-
-    supervisor = "supervisor"
-    reminder_agent = "reminder_agent"
-    confirmation_agent = "confirmation_agent"
-    edit_deal_agent = "edit_deal_agent"
-    info_agent = "info_agent"  # для отображения информации
-
-    def label(self):
-        labels = {
-            AgentType.supervisor: "Супервизор",
-            AgentType.reminder_agent: "Агент напоминаний",
-            AgentType.confirmation_agent: "Агент подтверждения",
-            AgentType.edit_deal_agent: "Агент редактирования",
-            AgentType.info_agent: "Информационный агент",
-        }
-        return labels[self]
 
 
 class DealData(BaseModel):
@@ -82,14 +59,12 @@ class State(BaseModel):
     user_input: Optional[str] = None
     user_command: Optional[str] = None  # /start, /help, /deals и т.д.
 
-    # Тип задачи для маршрутизации
-    agent_type: Optional[AgentType] = None
+    # Тип задачи для маршрутизации (используется в GraphProvider)
+    task_type: Optional[TaskTypeChoises] = None
 
     # Данные для работы агентов
     deal_data: Optional[DealData] = None
     application_data: Optional[ApplicationData] = None
-
-    task_type: Optional[TaskTypeChoises] = None
 
     # Результат работы агента
     result: Optional[str] = None
@@ -109,5 +84,5 @@ class SupervisorDecision(BaseModel):
     Решение супервизора о маршрутизации
     """
 
-    agent_type: AgentType
+    task_type: TaskTypeChoises
     reason: Optional[str] = None  # Причина выбора агента (для отладки)

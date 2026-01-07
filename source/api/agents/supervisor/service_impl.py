@@ -1,4 +1,5 @@
-from source.schemas.pydantic.agents import State, AgentType
+from source.schemas.pydantic.agents import State
+from source.db.models.choises.enum import TaskTypeChoises
 from source.config.logging import logger
 
 
@@ -20,36 +21,36 @@ class SupervisorServiceImpl:
         user_command = state.user_command or ""
 
         # Простая логика маршрутизации (позже заменим на LLM)
-        agent_type = self._determine_agent_type(user_input, user_command)
+        task_type = self._determine_task_type(user_input, user_command)
 
-        logger.info(f"[SUPERVISOR] Routed to agent: {agent_type.value}")
+        logger.info(f"[SUPERVISOR] Routed to agent: {task_type.value}")
 
         return state.model_copy(
             update={
-                "agent_type": agent_type,
+                "task_type": task_type,
             }
         )
 
-    def _determine_agent_type(
+    def _determine_task_type(
         self,
         user_input: str,
         user_command: str,
-    ) -> AgentType:
+    ) -> TaskTypeChoises:
         """
-        Определяет тип агента на основе входных данных.
+        Определяет тип задачи на основе входных данных.
         Пока простая логика, позже добавим LLM.
         """
         user_input_lower = user_input.lower()
 
         # Команды
         if user_command in ["/reminders", "/dates"]:
-            return AgentType.reminder_agent
+            return TaskTypeChoises.reminder_agent
 
         if user_command in ["/confirm", "/check"]:
-            return AgentType.confirmation_agent
+            return TaskTypeChoises.confirm_agent
 
         if user_command in ["/edit", "/change"]:
-            return AgentType.edit_deal_agent
+            return TaskTypeChoises.edit_deal_agent
 
         # Ключевые слова
         reminder_keywords = [
@@ -63,7 +64,7 @@ class SupervisorServiceImpl:
             "оплата",
         ]
         if any(keyword in user_input_lower for keyword in reminder_keywords):
-            return AgentType.reminder_agent
+            return TaskTypeChoises.reminder_agent
 
         confirm_keywords = [
             "подтверд",
@@ -73,7 +74,7 @@ class SupervisorServiceImpl:
             "корректно",
         ]
         if any(keyword in user_input_lower for keyword in confirm_keywords):
-            return AgentType.confirmation_agent
+            return TaskTypeChoises.confirm_agent
 
         edit_keywords = [
             "измени",
@@ -83,7 +84,7 @@ class SupervisorServiceImpl:
             "смени",
         ]
         if any(keyword in user_input_lower for keyword in edit_keywords):
-            return AgentType.edit_deal_agent
+            return TaskTypeChoises.edit_deal_agent
 
-        # По умолчанию - информационный агент
-        return AgentType.info_agent
+        # По умолчанию - агент напоминаний
+        return TaskTypeChoises.reminder_agent
