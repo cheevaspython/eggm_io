@@ -1,7 +1,11 @@
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
+from dishka import FromDishka
 
 from source.config.logging import logger
+from source.api.agents.interactor_abc import AgentsInteractorAbc
+from source.schemas.pydantic.agents import State
+from source.db.models.telegram_user import TelegramUser
 
 router = Router(name="messages")
 
@@ -9,28 +13,45 @@ router = Router(name="messages")
 @router.message(F.text)
 async def handle_text_message(
     message: Message,
+    telegram_user: TelegramUser,
+    agents_interactor: FromDishka[AgentsInteractorAbc],
 ) -> None:
     """
     Обработчик текстовых сообщений от пользователей.
     Направляет сообщение в систему агентов для обработки.
     """
-    if message and message.from_user:
-        logger.info(
-            f"[TELEGRAM] Text message from user_id={message.from_user.id}, "
-            f"text_length={len(message.text or '')}"
-        )
-    else:
-        logger.debug("[TELEGRAM] /start error - message.from_user is None")
+    if not message or not message.from_user or not message.text:
+        logger.warning("[TELEGRAM] Invalid message: missing required fields")
+        return
 
-    # TODO: Интеграция с AgentsInteractor
-    # 1. Получить пользователя из БД по telegram_id
-    # 2. Создать State для агентов
-    # 3. Вызвать AgentsInteractor для обработки
-    # 4. Отправить результат пользователю
-
-    await message.answer(
-        "💬 Получил ваше сообщение!\n(Обработка агентами в разработке)"
+    logger.info(
+        f"[TELEGRAM] Text message from user_id={message.from_user.id}, "
+        f"text_length={len(message.text)}"
     )
+
+    # Создаем State для агентов
+    state = State(
+        telegram_user_id=telegram_user.id,
+        telegram_chat_id=message.chat.id,
+        crm_user_id=telegram_user.crm_user_id,
+        user_role=telegram_user.role.value,
+        user_input=message.text,
+        message_id=message.message_id,
+    )
+
+    try:
+        # Вызываем AgentsInteractor для обработки
+        result_state = await agents_interactor(state)
+
+        # Отправляем результат пользователю
+        if result_state.result:
+            await message.answer(result_state.result)
+        else:
+            await message.answer("✅ Запрос обработан")
+
+    except Exception as e:
+        logger.error(f"[TELEGRAM] Error processing message: {e}", exc_info=True)
+        await message.answer("❌ Произошла ошибка при обработке запроса. Попробуйте позже.")
 
 
 @router.callback_query(F.data.startswith("confirm_"))
