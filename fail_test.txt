@@ -1,0 +1,1891 @@
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:208: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+[1m============================= test session starts ==============================[0m
+platform linux -- Python 3.12.12, pytest-8.3.4, pluggy-1.5.0
+rootdir: /eggm_io
+configfile: pyproject.toml
+plugins: asyncio-0.24.0, anyio-4.8.0, langsmith-0.6.1
+asyncio: mode=Mode.AUTO, default_loop_scope=None
+[1mcollecting ... [0m[1mcollecting 0 items                                                             [0m[1mcollected 31 items                                                             [0m
+
+source/tests/unit/test_deal_gateway.py [31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31m   [100%][0m
+
+==================================== ERRORS ====================================
+[31m[1m_______ ERROR at setup of TestDealGatewayCreate.test_create_minimal_deal _______[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_create_minimal_deal>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff78151b20>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff78151440>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m________ ERROR at setup of TestDealGatewayCreate.test_create_full_deal _________[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_create_full_deal>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f55940>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f55800>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayCreate.test_create_with_all_statuses[DealStatus.calculation] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_create_with_all_statuses[DealStatus.calculation]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff7813cfe0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff78151b20>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayCreate.test_create_with_all_statuses[DealStatus.confirmed_calculation] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_create_with_all_statuses[DealStatus.confirmed_calculation]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f56020>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f55f80>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayCreate.test_create_with_all_statuses[DealStatus.deal] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_create_with_all_statuses[DealStatus.deal]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f56840>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f567a0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayCreate.test_create_with_all_statuses[DealStatus.closed_deal] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_create_with_all_statuses[DealStatus.closed_deal]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f57060>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f56f20>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m__________ ERROR at setup of TestDealGatewayGet.test_get_by_id_exists __________[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_by_id_exists>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f57880>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f57740>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m________ ERROR at setup of TestDealGatewayGet.test_get_by_id_not_exists ________[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_by_id_not_exists>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f57ec0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff776b4040>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m________ ERROR at setup of TestDealGatewayGet.test_get_by_crm_id_exists ________[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_by_crm_id_exists>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f57920>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f574c0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m______ ERROR at setup of TestDealGatewayGet.test_get_by_crm_id_not_exists ______[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_by_crm_id_not_exists>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff79d5b7e0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff79d58220>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m___ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_exists ___[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_user_deals_exists>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff7ebb7380>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff7ebb7740>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m___ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_empty ____[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_user_deals_empty>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff7ebb59e0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff7ebb5260>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_with_limit[1] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_user_deals_with_limit[1]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff7ebb4c20>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f57560>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_with_limit[2] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_user_deals_with_limit[2]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f55940>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f55800>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_with_limit[5] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_user_deals_with_limit[5]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f56020>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f55f80>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_with_limit[10] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_user_deals_with_limit[10]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f556c0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f57100>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_default_7_days _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_deals_for_reminders_default_7_days>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff7ebb4c20>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff7ebb6fc0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_different_periods[1] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_deals_for_reminders_different_periods[1]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff7ebb7b00>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff7ebb7ce0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_different_periods[3] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_deals_for_reminders_different_periods[3]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff79d58220>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff78151d00>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_different_periods[5] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_deals_for_reminders_different_periods[5]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff7813cfe0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff776b4180>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_different_periods[10] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_deals_for_reminders_different_periods[10]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff776b49a0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff776b4860>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_no_dates _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_get_deals_for_reminders_no_dates>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff79d58220>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff79d5b7e0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_______ ERROR at setup of TestDealGatewayUpdate.test_update_single_field _______[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_update_single_field>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff7ebb7b00>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff7ebb7ce0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_____ ERROR at setup of TestDealGatewayUpdate.test_update_multiple_fields ______[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_update_multiple_fields>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff77f556c0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff77f56520>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayUpdate.test_update_different_fields[buyer_name-\u041d\u043e\u0432\u043e\u0435 \u0438\u043c\u044f] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_update_different_fields[buyer_name-\u041d\u043e\u0432\u043e\u0435 \u0438\u043c\u044f]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff776b4b80>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff776b4c20>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayUpdate.test_update_different_fields[total_amount-99999.99] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_update_different_fields[total_amount-99999.99]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff776b5760>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff776b56c0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayUpdate.test_update_different_fields[is_confirmed_by_manager-True] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_update_different_fields[is_confirmed_by_manager-True]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff776b5c60>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff776b5bc0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayUpdate.test_update_different_fields[is_confirmed_by_director-True] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_update_different_fields[is_confirmed_by_director-True]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff7813cfe0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff7ebb71a0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m_ ERROR at setup of TestDealGatewayUpdate.test_update_different_fields[comment-\u041d\u043e\u0432\u044b\u0439 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439] _[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_update_different_fields[comment-\u041d\u043e\u0432\u044b\u0439 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439]>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff79d58220>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff79d5b7e0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m__________ ERROR at setup of TestDealGatewayUpdate.test_update_dates ___________[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_update_dates>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff776b4f40>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff776b56c0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[31m[1m______ ERROR at setup of TestDealGatewayUpdate.test_update_persists_in_db ______[0m
+
+request = <SubRequest 'setup_test_db' for <Coroutine test_update_persists_in_db>>
+kwargs = {}, func = <function setup_test_db at 0xffff7813d6c0>
+event_loop_fixture_id = 'event_loop'
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0xffff776b5e40>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0xffff776b62a0>
+
+    [0m[37m@functools[39;49;00m.wraps(fixture)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_asyncgen_fixture_wrapper[39;49;00m(request: FixtureRequest, **kwargs: Any):[90m[39;49;00m
+        func = _perhaps_rebind_fixture_func(fixture, request.instance)[90m[39;49;00m
+        event_loop_fixture_id = _get_event_loop_fixture_id_for_async_fixture([90m[39;49;00m
+            request, func[90m[39;49;00m
+        )[90m[39;49;00m
+        event_loop = request.getfixturevalue(event_loop_fixture_id)[90m[39;49;00m
+        kwargs.pop(event_loop_fixture_id, [94mNone[39;49;00m)[90m[39;49;00m
+        gen_obj = func(**_add_kwargs(func, kwargs, event_loop, request))[90m[39;49;00m
+    [90m[39;49;00m
+        [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup[39;49;00m():[90m[39;49;00m
+            res = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m res[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mfinalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+    [90m        [39;49;00m[33m"""Yield again, to finalize."""[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92masync_finalizer[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+                [94mexcept[39;49;00m [96mStopAsyncIteration[39;49;00m:[90m[39;49;00m
+                    [94mpass[39;49;00m[90m[39;49;00m
+                [94melse[39;49;00m:[90m[39;49;00m
+                    msg = [33m"[39;49;00m[33mAsync generator fixture didn[39;49;00m[33m'[39;49;00m[33mt stop.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    msg += [33m"[39;49;00m[33mYield only once.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [94mraise[39;49;00m [96mValueError[39;49;00m(msg)[90m[39;49;00m
+    [90m[39;49;00m
+            event_loop.run_until_complete(async_finalizer())[90m[39;49;00m
+    [90m[39;49;00m
+>       result = event_loop.run_until_complete(setup())[90m[39;49;00m
+
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:343: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/usr/local/lib/python3.12/asyncio/base_events.py[0m:691: in run_until_complete
+    [0m[94mreturn[39;49;00m future.result()[90m[39;49;00m
+[1m[31m/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py[0m:325: in setup
+    [0mres = [94mawait[39;49;00m gen_obj.[92m__anext__[39;49;00m()  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mfunction[39;49;00m[33m"[39;49;00m, autouse=[94mTrue[39;49;00m)[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msetup_test_db[39;49;00m() -> AsyncGenerator:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Fixture для настройки тестовой базы данных перед тестами и очистки после.[39;49;00m
+    [33m[39;49;00m
+    [33m    Создает и удаляет все таблицы базы данных.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94masync[39;49;00m [94mwith[39;49;00m test_db_helper.engine.begin() [94mas[39;49;00m conn:[90m[39;49;00m
+>           [94mawait[39;49;00m conn.run_sync(func=Base.metadata.create_all)[90m[39;49;00m
+[1m[31mE           TypeError: AsyncConnection.run_sync() missing 1 required positional argument: 'fn'[0m
+
+[1m[31msource/tests/unit/conftest.py[0m:41: TypeError
+[33m=============================== warnings summary ===============================[0m
+source/tests/unit/test_deal_gateway.py::TestDealGatewayCreate::test_create_minimal_deal
+  /usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:783: DeprecationWarning: The event_loop fixture provided by pytest-asyncio has been redefined in
+  /eggm_io/source/tests/unit/conftest.py:23
+  Replacing the event_loop fixture with a custom implementation is deprecated
+  and will lead to errors in the future.
+  If you want to request an asyncio event loop with a scope other than function
+  scope, use the "scope" argument to the asyncio mark when marking the tests.
+  If you want to return different types of event loops, use the event_loop_policy
+  fixture.
+  
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+[36m[1m=========================== short test summary info ============================[0m
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayCreate::test_create_minimal_deal[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayCreate::test_create_full_deal[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayCreate::test_create_with_all_statuses[DealStatus.calculation][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayCreate::test_create_with_all_statuses[DealStatus.confirmed_calculation][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayCreate::test_create_with_all_statuses[DealStatus.deal][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayCreate::test_create_with_all_statuses[DealStatus.closed_deal][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGet::test_get_by_id_exists[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGet::test_get_by_id_not_exists[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGet::test_get_by_crm_id_exists[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGet::test_get_by_crm_id_not_exists[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_exists[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_empty[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_with_limit[1][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_with_limit[2][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_with_limit[5][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_with_limit[10][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_default_7_days[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_different_periods[1][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_different_periods[3][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_different_periods[5][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_different_periods[10][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_no_dates[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_single_field[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_multiple_fields[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_different_fields[buyer_name-\u041d\u043e\u0432\u043e\u0435 \u0438\u043c\u044f][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_different_fields[total_amount-99999.99][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_different_fields[is_confirmed_by_manager-True][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_different_fields[is_confirmed_by_director-True][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_different_fields[comment-\u041d\u043e\u0432\u044b\u0439 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439][0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_dates[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_persists_in_db[0m - TypeError: AsyncConnection.run_sync() missing 1 required positional argumen...
+[31m======================== [33m1 warning[0m, [31m[1m31 errors[0m[31m in 5.16s[0m[31m =========================[0m

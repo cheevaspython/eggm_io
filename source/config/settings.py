@@ -159,12 +159,8 @@ class RoboKassaConfig(BaseModel):
                 return secret_path.read_text().strip()
             return name_or_value
 
-        pw1 = get_secret_or_env(
-            "FASTAPI_CFG__ROBOKASSA__PASSWORD1", "subscription_robo_pass1"
-        )
-        pw2 = get_secret_or_env(
-            "FASTAPI_CFG__ROBOKASSA__PASSWORD2", "subscription_robo_pass2"
-        )
+        pw1 = get_secret_or_env("FASTAPI_CFG__ROBOKASSA__PASSWORD1", "robo_pass1")
+        pw2 = get_secret_or_env("FASTAPI_CFG__ROBOKASSA__PASSWORD2", "robo_pass2")
 
         data.setdefault("password1", pw1)
         data.setdefault("password2", pw2)
@@ -226,9 +222,14 @@ class WorkerSettings(BaseModel):
                 return secret_path.read_text().strip()
             return name_or_value
 
-        redis_password = get_secret_or_env("REDIS_PASSWORD", "redis_sub_password")
+        redis_password = get_secret_or_env("REDIS_PASSWORD", "redis_password")
 
-        redis_url = f"redis://:{redis_password}@redis_sub:6379/0"  # TODO add redis name from env
+        # TODO rm hardcode
+        redis_password = "redis"
+
+        redis_url = (
+            f"redis://:{redis_password}@redis:6379/0"  # TODO add redis name from env
+        )
         data.setdefault("celery_broker_url", redis_url)
         data.setdefault("celery_result_backend", redis_url)
         super().__init__(**data)

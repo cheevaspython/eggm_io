@@ -5,7 +5,7 @@ x-fastapi-common: &fastapi-common
     context: .
     dockerfile: docker/Dockerfile.back
   volumes:
-    - .:/v1pn
+    - .:/eggm_io
   env_file: .env
   depends_on:
     - redis
@@ -16,7 +16,7 @@ x-fastapi-common: &fastapi-common
 services:
   backend:
     <<: *fastapi-common
-    container_name: backend_v1pn
+    container_name: backend
     command: >
       sh -c "uvicorn source.main:create_app --host 0.0.0.0 --port 8088 --reload"
     depends_on:
@@ -32,15 +32,24 @@ services:
 
   taskiq_worker:
     <<: *fastapi-common
-    container_name: taskiq_worker_auth
+    container_name: taskiq_worker
     command: >
       sh -c "taskiq worker --ack-type when_received source.config.taskiq:create_taskiq_app source.tasks"
     depends_on:
       db_postgres:
         condition: service_healthy
 
+  taskiq_scheduler:
+    <<: *fastapi-common
+    container_name: taskiq_scheduler
+    command: >
+      sh -c "taskiq scheduler source.config.taskiq:create_taskiq_scheduler source.tasks"
+    depends_on:
+      db_postgres:
+        condition: service_healthy
+
   db_postgres:
-    container_name: db_postgres_auth
+    container_name: db_postgres
     image: postgres:16.2-alpine
     environment:
       POSTGRES_DB: $POSTGRES_DB
