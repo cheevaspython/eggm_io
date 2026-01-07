@@ -22,7 +22,7 @@ class DealReminderGatewayImpl(DealReminderGatewayAbc):
         """Получить напоминание по UUID"""
         try:
             stmt = select(DealReminder).where(DealReminder.id == reminder_id)
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return result.scalar_one_or_none()
         except Exception as e:
             logger.error(
@@ -39,7 +39,7 @@ class DealReminderGatewayImpl(DealReminderGatewayAbc):
                 .where(DealReminder.remind_at <= until)
                 .order_by(DealReminder.remind_at.asc())
             )
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return list(result.scalars().all())
         except Exception as e:
             logger.error(
@@ -55,7 +55,7 @@ class DealReminderGatewayImpl(DealReminderGatewayAbc):
                 .where(DealReminder.deal_id == deal_id)
                 .order_by(DealReminder.remind_at.asc())
             )
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return list(result.scalars().all())
         except Exception as e:
             logger.error(
@@ -77,7 +77,7 @@ class DealReminderGatewayImpl(DealReminderGatewayAbc):
                 .order_by(DealReminder.remind_at.asc())
                 .limit(limit)
             )
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return list(result.scalars().all())
         except Exception as e:
             logger.error(
@@ -89,9 +89,9 @@ class DealReminderGatewayImpl(DealReminderGatewayAbc):
         """Создать новое напоминание"""
         try:
             reminder = DealReminder(**kwargs)
-            self._session.add(reminder)
+            self._session.add(instance=reminder)
             await self._session.flush()
-            await self._session.refresh(reminder)
+            await self._session.refresh(instance=reminder)
             return reminder
         except Exception as e:
             logger.error(f"[DEAL_REMINDER_GATEWAY] Error creating reminder: {e}")
@@ -103,7 +103,7 @@ class DealReminderGatewayImpl(DealReminderGatewayAbc):
             reminder.is_sent = True
             reminder.sent_at = datetime.now()
             await self._session.flush()
-            await self._session.refresh(reminder)
+            await self._session.refresh(instance=reminder)
             return reminder
         except Exception as e:
             logger.error(
@@ -117,7 +117,7 @@ class DealReminderGatewayImpl(DealReminderGatewayAbc):
             reminder.retry_count += 1
             reminder.last_retry_at = datetime.now()
             await self._session.flush()
-            await self._session.refresh(reminder)
+            await self._session.refresh(instance=reminder)
             return reminder
         except Exception as e:
             logger.error(

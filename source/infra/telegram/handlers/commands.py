@@ -30,7 +30,7 @@ async def cmd_start(message: Message) -> None:
         "Используйте /help для просмотра всех команд"
     )
 
-    await message.answer(welcome_text)
+    await message.answer(text=welcome_text)
 
 
 @router.message(Command("help"))
@@ -55,7 +55,7 @@ async def cmd_help(message: Message) -> None:
         "и я постараюсь помочь!"
     )
 
-    await message.answer(help_text)
+    await message.answer(text=help_text)
 
 
 @router.message(Command("deals"))
@@ -71,7 +71,7 @@ async def cmd_deals(message: Message) -> None:
         logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     # TODO: Интеграция с агентом для получения списка сделок
-    await message.answer("📊 Загружаю ваши сделки...\n(Функция в разработке)")
+    await message.answer(text="📊 Загружаю ваши сделки...\n(Функция в разработке)")
 
 
 @router.message(Command("applications"))
@@ -86,7 +86,7 @@ async def cmd_applications(message: Message) -> None:
         logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     # TODO: Интеграция с агентом для получения списка заявок
-    await message.answer("📝 Загружаю ваши заявки...\n(Функция в разработке)")
+    await message.answer(text="📝 Загружаю ваши заявки...\n(Функция в разработке)")
 
 
 @router.message(Command("reminders"))
@@ -101,7 +101,7 @@ async def cmd_reminders(message: Message) -> None:
         logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     # TODO: Интеграция с агентом напоминаний
-    await message.answer("⏰ Загружаю ваши напоминания...\n(Функция в разработке)")
+    await message.answer(text="⏰ Загружаю ваши напоминания...\n(Функция в разработке)")
 
 
 @router.message(Command("stats"))
@@ -116,4 +116,4 @@ async def cmd_stats(message: Message) -> None:
         logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     # TODO: Интеграция с агентом аналитики
-    await message.answer("📈 Загружаю вашу статистику...\n(Функция в разработке)")
+    await message.answer(text="📈 Загружаю вашу статистику...\n(Функция в разработке)")

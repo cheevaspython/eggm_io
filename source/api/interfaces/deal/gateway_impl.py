@@ -22,7 +22,7 @@ class DealGatewayImpl(DealGatewayAbc):
         """Получить сделку по UUID"""
         try:
             stmt = select(Deal).where(Deal.id == deal_id)
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return result.scalar_one_or_none()
         except Exception as e:
             logger.error(f"[DEAL_GATEWAY] Error getting deal by id {deal_id}: {e}")
@@ -32,7 +32,7 @@ class DealGatewayImpl(DealGatewayAbc):
         """Получить сделку по CRM ID"""
         try:
             stmt = select(Deal).where(Deal.crm_deal_id == crm_deal_id)
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return result.scalar_one_or_none()
         except Exception as e:
             logger.error(
@@ -53,7 +53,7 @@ class DealGatewayImpl(DealGatewayAbc):
                 .order_by(Deal.created_date.desc())
                 .limit(limit)
             )
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return list(result.scalars().all())
         except Exception as e:
             logger.error(
@@ -76,7 +76,7 @@ class DealGatewayImpl(DealGatewayAbc):
                 | (Deal.unloading_date.between(now, future_date))
                 | (Deal.payment_date.between(now, future_date))
             )
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return list(result.scalars().all())
         except Exception as e:
             logger.error(f"[DEAL_GATEWAY] Error getting deals for reminders: {e}")
@@ -86,9 +86,9 @@ class DealGatewayImpl(DealGatewayAbc):
         """Создать новую сделку"""
         try:
             deal = Deal(**kwargs)
-            self._session.add(deal)
+            self._session.add(instance=deal)
             await self._session.flush()
-            await self._session.refresh(deal)
+            await self._session.refresh(instance=deal)
             return deal
         except Exception as e:
             logger.error(f"[DEAL_GATEWAY] Error creating deal: {e}")
@@ -101,7 +101,7 @@ class DealGatewayImpl(DealGatewayAbc):
                 if hasattr(deal, key):
                     setattr(deal, key, value)
             await self._session.flush()
-            await self._session.refresh(deal)
+            await self._session.refresh(instance=deal)
             return deal
         except Exception as e:
             logger.error(f"[DEAL_GATEWAY] Error updating deal {deal.id}: {e}")

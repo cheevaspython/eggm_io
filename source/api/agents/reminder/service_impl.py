@@ -18,8 +18,8 @@ class ReminderAgentServiceImpl(ReminderAgentServiceAbc):
     async def __call__(self, state: State) -> State:
         logger.info("[REMINDER_AGENT] Processing reminder request")
 
-        prompt = self._reminder_prompts.procedural_reminder_prompt(state)
-        response = await self._llm.ainvoke(prompt)
+        prompt = self._reminder_prompts.procedural_reminder_prompt(state=state)
+        response = await self._llm.ainvoke(input=prompt)
 
         # Преобразуем response.content в строку
         if hasattr(response, "content"):

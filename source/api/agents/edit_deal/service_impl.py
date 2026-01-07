@@ -18,8 +18,8 @@ class EditDealAgentServiceImpl(EditDealAgentServiceAbc):
     async def __call__(self, state: State) -> State:
         logger.info("[EDIT_DEAL_AGENT] Processing edit request")
 
-        prompt = self._edit_deal_prompts.procedural_edit_deal_prompt(state)
-        response = await self._llm.ainvoke(prompt)
+        prompt = self._edit_deal_prompts.procedural_edit_deal_prompt(state=state)
+        response = await self._llm.ainvoke(input=prompt)
 
         # Преобразуем response.content в строку
         if hasattr(response, "content"):

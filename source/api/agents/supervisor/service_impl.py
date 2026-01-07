@@ -15,7 +15,7 @@ class SupervisorServiceImpl:
     def __init__(self, llm: ChatOpenAI, supervisor_prompts: SupervisorPrompts):
         self._llm = llm
         self._supervisor_prompts = supervisor_prompts
-        self._structured_llm = llm.with_structured_output(SupervisorDecision)
+        self._structured_llm = llm.with_structured_output(schema=SupervisorDecision)
 
     async def __call__(self, state: State) -> State:
         logger.info("[SUPERVISOR] Analyzing user request for routing")
@@ -26,10 +26,10 @@ class SupervisorServiceImpl:
             return state
 
         # Используем LLM для определения task_type
-        prompt = self._supervisor_prompts.procedural_supervisor_prompt(state)
+        prompt = self._supervisor_prompts.procedural_supervisor_prompt(state=state)
 
         try:
-            decision_raw = await self._structured_llm.ainvoke(prompt)
+            decision_raw = await self._structured_llm.ainvoke(input=prompt)
 
             # Преобразуем в SupervisorDecision если это dict
             if isinstance(decision_raw, dict):

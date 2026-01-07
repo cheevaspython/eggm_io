@@ -41,17 +41,17 @@ async def handle_text_message(
 
     try:
         # Вызываем AgentsInteractor для обработки
-        result_state = await agents_interactor(state)
+        result_state = await agents_interactor(state=state)
 
         # Отправляем результат пользователю
         if result_state.result:
-            await message.answer(result_state.result)
+            await message.answer(text=result_state.result)
         else:
-            await message.answer("✅ Запрос обработан")
+            await message.answer(text="✅ Запрос обработан")
 
     except Exception as e:
         logger.error(f"[TELEGRAM] Error processing message: {e}", exc_info=True)
-        await message.answer("❌ Произошла ошибка при обработке запроса. Попробуйте позже.")
+        await message.answer(text="❌ Произошла ошибка при обработке запроса. Попробуйте позже.")
 
 
 @router.callback_query(F.data.startswith("confirm_"))
@@ -72,12 +72,12 @@ async def handle_confirmation_callback(
         return
 
     # TODO: Обработка подтверждений через агента
-    await callback.answer("Подтверждение принято!")
+    await callback.answer(text="Подтверждение принято!")
 
     # Проверяем что message это Message, а не InaccessibleMessage
     if callback.message and isinstance(callback.message, Message):
         try:
-            await callback.message.edit_text("✅ Подтверждено\n(Обработка в разработке)")
+            await callback.message.edit_text(text="✅ Подтверждено\n(Обработка в разработке)")
         except Exception as e:
             logger.warning(f"[TELEGRAM] Failed to edit message: {e}")
 
@@ -105,7 +105,7 @@ async def handle_edit_callback(
     # Проверяем что message это Message, а не InaccessibleMessage
     if callback.message and isinstance(callback.message, Message):
         try:
-            await callback.message.answer("✏️ Начинаем редактирование\n(Функция в разработке)")
+            await callback.message.answer(text="✏️ Начинаем редактирование\n(Функция в разработке)")
         except Exception as e:
             logger.warning(f"[TELEGRAM] Failed to send message: {e}")
 
@@ -133,7 +133,7 @@ async def handle_view_callback(
     # Проверяем что message это Message, а не InaccessibleMessage
     if callback.message and isinstance(callback.message, Message):
         try:
-            await callback.message.answer("👁️ Загружаю детали...\n(Функция в разработке)")
+            await callback.message.answer(text="👁️ Загружаю детали...\n(Функция в разработке)")
         except Exception as e:
             logger.warning(f"[TELEGRAM] Failed to send message: {e}")
 
@@ -154,4 +154,4 @@ async def handle_unknown_callback(
         logger.debug("[TELEGRAM] Callback error - callback.from_user is None")
         return
 
-    await callback.answer("Неизвестная команда", show_alert=True)
+    await callback.answer(text="Неизвестная команда", show_alert=True)

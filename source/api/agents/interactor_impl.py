@@ -1,5 +1,6 @@
-from typing import Any
+from typing import cast
 from uuid import uuid4
+from langchain_core.runnables import RunnableConfig
 from langgraph.graph.state import CompiledStateGraph
 from source.schemas.pydantic.agents import State
 from source.api.agents.interactor_abc import AgentsInteractorAbc
@@ -21,7 +22,9 @@ class AgentsInteractorImpl(AgentsInteractorAbc):
         """
         # Генерируем thread_id для чекпоинтера
         thread_id = str(uuid4())
-        config: dict[str, Any] = {"configurable": {"thread_id": thread_id}}
+        config: RunnableConfig = cast(
+            RunnableConfig, {"configurable": {"thread_id": thread_id}}
+        )
 
         logger.info(
             f"[AGENTS_INTERACTOR] Starting graph execution for user {state.telegram_user_id}"
@@ -29,7 +32,7 @@ class AgentsInteractorImpl(AgentsInteractorAbc):
 
         try:
             # Запускаем граф - возвращает dict
-            result_raw = await self._graph.ainvoke(state, config)
+            result_raw = await self._graph.ainvoke(input=state, config=config)
 
             # Преобразуем dict в State
             if isinstance(result_raw, dict):

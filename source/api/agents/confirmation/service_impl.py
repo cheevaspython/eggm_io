@@ -18,8 +18,8 @@ class ConfirmationAgentServiceImpl(ConfirmationAgentServiceAbc):
     async def __call__(self, state: State) -> State:
         logger.info("[CONFIRMATION_AGENT] Processing confirmation request")
 
-        prompt = self._confirmation_prompts.procedural_confirmation_prompt(state)
-        response = await self._llm.ainvoke(prompt)
+        prompt = self._confirmation_prompts.procedural_confirmation_prompt(state=state)
+        response = await self._llm.ainvoke(input=prompt)
 
         # Преобразуем response.content в строку
         if hasattr(response, "content"):

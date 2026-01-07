@@ -21,7 +21,7 @@ class ApplicationGatewayImpl(ApplicationGatewayAbc):
         """Получить заявку по UUID"""
         try:
             stmt = select(Application).where(Application.id == application_id)
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return result.scalar_one_or_none()
         except Exception as e:
             logger.error(
@@ -35,7 +35,7 @@ class ApplicationGatewayImpl(ApplicationGatewayAbc):
             stmt = select(Application).where(
                 Application.crm_application_id == crm_application_id
             )
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return result.scalar_one_or_none()
         except Exception as e:
             logger.error(
@@ -56,7 +56,7 @@ class ApplicationGatewayImpl(ApplicationGatewayAbc):
                 .order_by(Application.created_date.desc())
                 .limit(limit)
             )
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return list(result.scalars().all())
         except Exception as e:
             logger.error(
@@ -77,7 +77,7 @@ class ApplicationGatewayImpl(ApplicationGatewayAbc):
                 .order_by(Application.created_date.desc())
                 .limit(limit)
             )
-            result = await self._session.execute(stmt)
+            result = await self._session.execute(statement=stmt)
             return list(result.scalars().all())
         except Exception as e:
             logger.error(
@@ -89,9 +89,9 @@ class ApplicationGatewayImpl(ApplicationGatewayAbc):
         """Создать новую заявку"""
         try:
             application = Application(**kwargs)
-            self._session.add(application)
+            self._session.add(instance=application)
             await self._session.flush()
-            await self._session.refresh(application)
+            await self._session.refresh(instance=application)
             return application
         except Exception as e:
             logger.error(f"[APPLICATION_GATEWAY] Error creating application: {e}")
@@ -104,7 +104,7 @@ class ApplicationGatewayImpl(ApplicationGatewayAbc):
                 if hasattr(application, key):
                     setattr(application, key, value)
             await self._session.flush()
-            await self._session.refresh(application)
+            await self._session.refresh(instance=application)
             return application
         except Exception as e:
             logger.error(

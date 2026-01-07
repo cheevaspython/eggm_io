@@ -44,7 +44,7 @@ class AuthMiddleware(BaseMiddleware):
                 stmt = select(TelegramUser).where(
                     TelegramUser.telegram_id == telegram_id
                 )
-                result = await session.execute(stmt)
+                result = await session.execute(statement=stmt)
                 telegram_user = result.scalar_one_or_none()
 
                 if not telegram_user:
@@ -52,7 +52,7 @@ class AuthMiddleware(BaseMiddleware):
                         f"[AUTH_MIDDLEWARE] User not found: telegram_id={telegram_id}"
                     )
                     await event.answer(
-                        "❌ У вас нет доступа к боту.\n"
+                        text="❌ У вас нет доступа к боту.\n"
                         "Обратитесь к администратору для получения доступа."
                     )
                     return
@@ -62,7 +62,7 @@ class AuthMiddleware(BaseMiddleware):
                         f"[AUTH_MIDDLEWARE] User blocked: telegram_id={telegram_id}"
                     )
                     await event.answer(
-                        "❌ Ваш доступ к боту заблокирован.\n"
+                        text="❌ Ваш доступ к боту заблокирован.\n"
                         "Обратитесь к администратору."
                     )
                     return
@@ -72,7 +72,7 @@ class AuthMiddleware(BaseMiddleware):
                         f"[AUTH_MIDDLEWARE] User inactive: telegram_id={telegram_id}"
                     )
                     await event.answer(
-                        "❌ Ваш аккаунт неактивен.\n"
+                        text="❌ Ваш аккаунт неактивен.\n"
                         "Обратитесь к администратору."
                     )
                     return
@@ -86,7 +86,7 @@ class AuthMiddleware(BaseMiddleware):
                 )
             except Exception as e:
                 logger.error(f"[AUTH_MIDDLEWARE] Database error: {e}", exc_info=True)
-                await event.answer("❌ Ошибка проверки доступа. Попробуйте позже.")
+                await event.answer(text="❌ Ошибка проверки доступа. Попробуйте позже.")
                 return
 
         return await handler(event, data)

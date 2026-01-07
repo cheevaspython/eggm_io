@@ -38,7 +38,7 @@ def create_app() -> FastAPI:
         allow_headers=settings.middleware.allow_headers,
     )
 
-    app.include_router(http_router)
-    fastapi_integration.setup_dishka(container, app)
+    app.include_router(router=http_router)
+    fastapi_integration.setup_dishka(container=container, app=app)
 
     return app

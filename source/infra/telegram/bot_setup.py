@@ -13,13 +13,13 @@ def setup_dispatcher() -> Dispatcher:
     dp = Dispatcher()
 
     # Регистрируем роутеры
-    dp.include_router(commands.router)
-    dp.include_router(messages.router)
+    dp.include_router(router=commands.router)
+    dp.include_router(router=messages.router)
 
     # Регистрируем middleware
     # AuthMiddleware должен проверять пользователя перед обработкой
-    dp.message.middleware(AuthMiddleware())
-    dp.callback_query.middleware(AuthMiddleware())
+    dp.message.middleware(middleware=AuthMiddleware())
+    dp.callback_query.middleware(middleware=AuthMiddleware())
 
     logger.info("[BOT_SETUP] Dispatcher configured successfully")
 

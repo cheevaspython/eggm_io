@@ -286,14 +286,14 @@ class GraphProvider(Provider):
         supervisor_agent: SupervisorServiceAbc,
         checkpointer: InMemorySaver,
     ) -> CompiledStateGraph:
-        workflow = StateGraph(State)
+        workflow = StateGraph(state_schema=State)
 
-        workflow.add_node(SUPERVISOR, supervisor_agent)
-        workflow.add_node(CONFIRM_AGENT, confirm_agent)
-        workflow.add_node(EDIT_DEAL_AGENT, edit_deal_agent)
-        workflow.add_node(REMINDER_AGENT, reminder_agent)
+        workflow.add_node(key=SUPERVISOR, node=supervisor_agent)
+        workflow.add_node(key=CONFIRM_AGENT, node=confirm_agent)
+        workflow.add_node(key=EDIT_DEAL_AGENT, node=edit_deal_agent)
+        workflow.add_node(key=REMINDER_AGENT, node=reminder_agent)
 
-        workflow.set_entry_point(SUPERVISOR)
+        workflow.set_entry_point(key=SUPERVISOR)
 
         def supervisor_route(state: State) -> str:
             task_type = state.task_type
@@ -306,18 +306,18 @@ class GraphProvider(Provider):
                 return TaskTypeChoises.reminder_agent.value
 
         workflow.add_conditional_edges(
-            SUPERVISOR,
-            supervisor_route,
-            {
+            source=SUPERVISOR,
+            path=supervisor_route,
+            path_map={
                 CONFIRM_AGENT: CONFIRM_AGENT,
                 EDIT_DEAL_AGENT: EDIT_DEAL_AGENT,
                 REMINDER_AGENT: REMINDER_AGENT,
             },
         )
 
-        workflow.add_edge(CONFIRM_AGENT, END)
-        workflow.add_edge(EDIT_DEAL_AGENT, END)
-        workflow.add_edge(REMINDER_AGENT, END)
+        workflow.add_edge(start_key=CONFIRM_AGENT, end_key=END)
+        workflow.add_edge(start_key=EDIT_DEAL_AGENT, end_key=END)
+        workflow.add_edge(start_key=REMINDER_AGENT, end_key=END)
 
         return workflow.compile(checkpointer=checkpointer)
 
