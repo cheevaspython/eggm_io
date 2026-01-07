@@ -1,90 +1,51 @@
-from source.schemas.pydantic.agents import State
+from langchain_openai import ChatOpenAI
+from source.schemas.pydantic.agents import State, SupervisorDecision
 from source.db.models.choises.enum import TaskTypeChoises
+from source.services.prompts.supervisor_prompts import SupervisorPrompts
 from source.config.logging import logger
 
 
 class SupervisorServiceImpl:
     """
     Реализация супервизора.
-    Анализирует запрос пользователя и определяет к какому агенту его направить.
-
-    TODO: Интегрировать LLM для умной маршрутизации
+    Использует LLM для анализа запроса пользователя и определения агента для маршрутизации.
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, llm: ChatOpenAI, supervisor_prompts: SupervisorPrompts):
+        self._llm = llm
+        self._supervisor_prompts = supervisor_prompts
+        self._structured_llm = llm.with_structured_output(SupervisorDecision)
 
     async def __call__(self, state: State) -> State:
         logger.info("[SUPERVISOR] Analyzing user request for routing")
 
-        user_input = state.user_input or ""
-        user_command = state.user_command or ""
+        # Если task_type уже определен (например, через команду), оставляем как есть
+        if state.task_type:
+            logger.info(f"[SUPERVISOR] Task type already set: {state.task_type.value}")
+            return state
 
-        # Простая логика маршрутизации (позже заменим на LLM)
-        task_type = self._determine_task_type(user_input, user_command)
+        # Используем LLM для определения task_type
+        prompt = self._supervisor_prompts.procedural_supervisor_prompt(state)
 
-        logger.info(f"[SUPERVISOR] Routed to agent: {task_type.value}")
+        try:
+            decision: SupervisorDecision = await self._structured_llm.ainvoke(prompt)
+            task_type = decision.task_type
 
-        return state.model_copy(
-            update={
-                "task_type": task_type,
-            }
-        )
+            logger.info(
+                f"[SUPERVISOR] Routed to agent: {task_type.value}"
+                + (f" (reason: {decision.reason})" if decision.reason else "")
+            )
 
-    def _determine_task_type(
-        self,
-        user_input: str,
-        user_command: str,
-    ) -> TaskTypeChoises:
-        """
-        Определяет тип задачи на основе входных данных.
-        Пока простая логика, позже добавим LLM.
-        """
-        user_input_lower = user_input.lower()
-
-        # Команды
-        if user_command in ["/reminders", "/dates"]:
-            return TaskTypeChoises.reminder_agent
-
-        if user_command in ["/confirm", "/check"]:
-            return TaskTypeChoises.confirm_agent
-
-        if user_command in ["/edit", "/change"]:
-            return TaskTypeChoises.edit_deal_agent
-
-        # Ключевые слова
-        reminder_keywords = [
-            "напомни",
-            "напоминание",
-            "дата",
-            "когда",
-            "срок",
-            "погрузка",
-            "разгрузка",
-            "оплата",
-        ]
-        if any(keyword in user_input_lower for keyword in reminder_keywords):
-            return TaskTypeChoises.reminder_agent
-
-        confirm_keywords = [
-            "подтверд",
-            "проверь",
-            "верно",
-            "правильно",
-            "корректно",
-        ]
-        if any(keyword in user_input_lower for keyword in confirm_keywords):
-            return TaskTypeChoises.confirm_agent
-
-        edit_keywords = [
-            "измени",
-            "редактир",
-            "поправ",
-            "обнови",
-            "смени",
-        ]
-        if any(keyword in user_input_lower for keyword in edit_keywords):
-            return TaskTypeChoises.edit_deal_agent
-
-        # По умолчанию - агент напоминаний
-        return TaskTypeChoises.reminder_agent
+            return state.model_copy(
+                update={
+                    "task_type": task_type,
+                }
+            )
+        except Exception as e:
+            logger.error(f"[SUPERVISOR] LLM routing failed: {e}, falling back to default")
+            # Fallback к reminder_agent при ошибке
+            return state.model_copy(
+                update={
+                    "task_type": TaskTypeChoises.reminder_agent,
+                }
+            )

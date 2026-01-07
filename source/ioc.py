@@ -27,9 +27,17 @@ from taskiq import AsyncBroker
 
 from source.config.logging import logger
 from source.api.agents.confirmation.service_abc import ConfirmationAgentServiceAbc
+from source.api.agents.confirmation.service_impl import ConfirmationAgentServiceImpl
 from source.api.agents.edit_deal.service_abc import EditDealAgentServiceAbc
+from source.api.agents.edit_deal.service_impl import EditDealAgentServiceImpl
 from source.api.agents.reminder.service_abc import ReminderAgentServiceAbc
+from source.api.agents.reminder.service_impl import ReminderAgentServiceImpl
 from source.api.agents.supervisor.service_abc import SupervisorServiceAbc
+from source.api.agents.supervisor.service_impl import SupervisorServiceImpl
+from source.services.prompts.confirmation_prompts import ConfirmationAgentPrompts
+from source.services.prompts.edit_deal_prompts import EditDealAgentPrompts
+from source.services.prompts.reminder_prompts import ReminderAgentPrompts
+from source.services.prompts.supervisor_prompts import SupervisorPrompts
 from source.common.commiter import Commiter
 from source.common.constrants import (
     SUPERVISOR,
@@ -196,6 +204,62 @@ class OpenAIProvider(Provider):
         return InMemorySaver()
 
 
+class AgentProvider(Provider):
+    """
+    Provider для AI-агентов и промптов.
+    """
+
+    # Промпты (синглтоны на уровне приложения)
+    @provide(scope=Scope.APP)
+    def provide_supervisor_prompts(self) -> SupervisorPrompts:
+        return SupervisorPrompts()
+
+    @provide(scope=Scope.APP)
+    def provide_reminder_prompts(self) -> ReminderAgentPrompts:
+        return ReminderAgentPrompts()
+
+    @provide(scope=Scope.APP)
+    def provide_confirmation_prompts(self) -> ConfirmationAgentPrompts:
+        return ConfirmationAgentPrompts()
+
+    @provide(scope=Scope.APP)
+    def provide_edit_deal_prompts(self) -> EditDealAgentPrompts:
+        return EditDealAgentPrompts()
+
+    # Агенты (REQUEST scope для гибкости)
+    @provide(scope=Scope.REQUEST, provides=SupervisorServiceAbc)
+    def provide_supervisor(
+        self,
+        llm: ChatOpenAI,
+        prompts: SupervisorPrompts,
+    ) -> SupervisorServiceImpl:
+        return SupervisorServiceImpl(llm=llm, supervisor_prompts=prompts)
+
+    @provide(scope=Scope.REQUEST, provides=ReminderAgentServiceAbc)
+    def provide_reminder_agent(
+        self,
+        llm: ChatOpenAI,
+        prompts: ReminderAgentPrompts,
+    ) -> ReminderAgentServiceImpl:
+        return ReminderAgentServiceImpl(llm=llm, reminder_prompts=prompts)
+
+    @provide(scope=Scope.REQUEST, provides=ConfirmationAgentServiceAbc)
+    def provide_confirmation_agent(
+        self,
+        llm: ChatOpenAI,
+        prompts: ConfirmationAgentPrompts,
+    ) -> ConfirmationAgentServiceImpl:
+        return ConfirmationAgentServiceImpl(llm=llm, confirmation_prompts=prompts)
+
+    @provide(scope=Scope.REQUEST, provides=EditDealAgentServiceAbc)
+    def provide_edit_deal_agent(
+        self,
+        llm: ChatOpenAI,
+        prompts: EditDealAgentPrompts,
+    ) -> EditDealAgentServiceImpl:
+        return EditDealAgentServiceImpl(llm=llm, edit_deal_prompts=prompts)
+
+
 class GraphProvider(Provider):
     @provide(scope=Scope.REQUEST, provides=CompiledStateGraph)
     async def provide_graph(
@@ -252,6 +316,8 @@ def setup_di() -> AsyncContainer:
     providers.append(SessionProvider())
     providers.append(AiohttpProvider())
     providers.append(ElasticsearchProvider())
+    providers.append(OpenAIProvider())
+    providers.append(AgentProvider())
     providers.append(GraphProvider())
 
     container = make_async_container(

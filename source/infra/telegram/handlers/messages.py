@@ -1,6 +1,5 @@
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
-from dishka import FromDishka
 
 from source.config.logging import logger
 

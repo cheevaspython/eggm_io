@@ -1,4 +1,3 @@
-from aiohttp import web
 from aiogram import Bot
 from aiogram.types import Update
 from dishka.integrations.fastapi import FromDishka
