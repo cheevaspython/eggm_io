@@ -1,3 +1,4 @@
+from typing import Any
 from uuid import uuid4
 from langgraph.graph.state import CompiledStateGraph
 from source.schemas.pydantic.agents import State
@@ -20,15 +21,21 @@ class AgentsInteractorImpl(AgentsInteractorAbc):
         """
         # Генерируем thread_id для чекпоинтера
         thread_id = str(uuid4())
-        config = {"configurable": {"thread_id": thread_id}}
+        config: dict[str, Any] = {"configurable": {"thread_id": thread_id}}
 
         logger.info(
             f"[AGENTS_INTERACTOR] Starting graph execution for user {state.telegram_user_id}"
         )
 
         try:
-            # Запускаем граф
-            result = await self._graph.ainvoke(state, config)
+            # Запускаем граф - возвращает dict
+            result_raw = await self._graph.ainvoke(state, config)
+
+            # Преобразуем dict в State
+            if isinstance(result_raw, dict):
+                result = State(**result_raw)
+            else:
+                result = result_raw
 
             logger.info(
                 f"[AGENTS_INTERACTOR] Graph execution completed. Result: {result.result[:100] if result.result else 'None'}..."

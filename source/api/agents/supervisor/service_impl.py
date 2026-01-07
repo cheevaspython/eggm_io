@@ -29,7 +29,14 @@ class SupervisorServiceImpl:
         prompt = self._supervisor_prompts.procedural_supervisor_prompt(state)
 
         try:
-            decision = await self._structured_llm.ainvoke(prompt)
+            decision_raw = await self._structured_llm.ainvoke(prompt)
+
+            # Преобразуем в SupervisorDecision если это dict
+            if isinstance(decision_raw, dict):
+                decision = SupervisorDecision(**decision_raw)
+            else:
+                decision = decision_raw
+
             task_type = decision.task_type
 
             logger.info(
