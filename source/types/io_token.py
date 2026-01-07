@@ -1,0 +1,2 @@
+TokenIn = int
+TokenOut = int

@@ -1,0 +1,28 @@
+FROM python:3.12
+
+ENV PYTHONFAULTHANDLER=1 \
+  PYTHONUNBUFFERED=1 \
+  PYTHONHASHSEED=random \
+  PIP_NO_CACHE_DIR=off \
+  PIP_DISABLE_PIP_VERSION_CHECK=on \
+  PIP_DEFAULT_TIMEOUT=100 \
+  POETRY_VERSION=1.4.0
+
+RUN pip install "setuptools"
+RUN pip install "poetry==$POETRY_VERSION"
+RUN pip install "typing_extensions"
+
+WORKDIR /v1pn
+COPY poetry.lock pyproject.toml /v1pn/
+
+RUN poetry config installer.max-workers 10
+RUN poetry config virtualenvs.create false \
+  && poetry install --no-interaction --no-ansi
+
+COPY . /v1pn
+
+RUN adduser --disabled-password docker-admin
+USER docker-admin
+
+
+

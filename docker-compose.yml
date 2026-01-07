@@ -1,0 +1,79 @@
+version: "3.9"
+
+x-fastapi-common: &fastapi-common
+  build:
+    context: .
+    dockerfile: docker/Dockerfile.back
+  volumes:
+    - .:/v1pn
+  env_file: .env
+  depends_on:
+    - redis
+  networks:
+    - app_network
+  restart: always
+
+services:
+  backend:
+    <<: *fastapi-common
+    container_name: backend_v1pn
+    command: >
+      sh -c "uvicorn source.main:create_app --host 0.0.0.0 --port 8088 --reload"
+    depends_on:
+      db_postgres:
+        condition: service_healthy
+    healthcheck:
+      test: curl -f http://localhost:8088/api/v1/healthcheck/ || exit 1
+      interval: 20s
+      retries: 3
+      start_period: 30s
+    ports:
+      - "80:8088"
+
+  taskiq_worker:
+    <<: *fastapi-common
+    container_name: taskiq_worker_auth
+    command: >
+      sh -c "taskiq worker --ack-type when_received source.config.taskiq:create_taskiq_app source.tasks"
+    depends_on:
+      db_postgres:
+        condition: service_healthy
+
+  db_postgres:
+    container_name: db_postgres_auth
+    image: postgres:16.2-alpine
+    environment:
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_PORT: $POSTGRES_PORT
+    networks:
+      - app_network
+    volumes:
+      - application_db:/var/lib/postgresql/data/
+      - ./init_scripts:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"
+      interval: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      restart_policy:
+        condition: any
+
+  redis:
+    image: redis:7.0.5-alpine
+    container_name: redis
+    hostname: redis
+    networks:
+      - app_network
+    environment:
+      REDIS_PORT: $REDIS_PORT
+      REDIS_PASSWORD: $REDIS_PASSWORD
+    restart: always
+
+volumes:
+  application_db:
+
+networks:
+  app_network:
