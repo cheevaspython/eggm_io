@@ -29,7 +29,7 @@ class SupervisorServiceImpl:
         prompt = self._supervisor_prompts.procedural_supervisor_prompt(state)
 
         try:
-            decision: SupervisorDecision = await self._structured_llm.ainvoke(prompt)
+            decision = await self._structured_llm.ainvoke(prompt)
             task_type = decision.task_type
 
             logger.info(

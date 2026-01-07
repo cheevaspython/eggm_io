@@ -34,6 +34,8 @@ from source.api.agents.reminder.service_abc import ReminderAgentServiceAbc
 from source.api.agents.reminder.service_impl import ReminderAgentServiceImpl
 from source.api.agents.supervisor.service_abc import SupervisorServiceAbc
 from source.api.agents.supervisor.service_impl import SupervisorServiceImpl
+from source.api.agents.interactor_abc import AgentsInteractorAbc
+from source.api.agents.interactor_impl import AgentsInteractorImpl
 from source.services.prompts.confirmation_prompts import ConfirmationAgentPrompts
 from source.services.prompts.edit_deal_prompts import EditDealAgentPrompts
 from source.services.prompts.reminder_prompts import ReminderAgentPrompts
@@ -258,6 +260,14 @@ class AgentProvider(Provider):
         prompts: EditDealAgentPrompts,
     ) -> EditDealAgentServiceImpl:
         return EditDealAgentServiceImpl(llm=llm, edit_deal_prompts=prompts)
+
+    # Интерактор для оркестрации агентов
+    @provide(scope=Scope.REQUEST, provides=AgentsInteractorAbc)
+    def provide_agents_interactor(
+        self,
+        graph: CompiledStateGraph,
+    ) -> AgentsInteractorImpl:
+        return AgentsInteractorImpl(graph=graph)
 
 
 class GraphProvider(Provider):
