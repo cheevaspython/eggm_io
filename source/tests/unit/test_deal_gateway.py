@@ -27,7 +27,7 @@ async def sample_deal(test_db_session: AsyncSession) -> Deal:
     """Создает тестовую сделку в БД."""
     deal = Deal(
         crm_deal_id=1001,
-        status=DealStatus.NEW,
+        status=DealStatus.calculation,
         owner_crm_id=100,
         buyer_name="ООО Покупатель",
         seller_name="ООО Продавец",
@@ -49,7 +49,7 @@ async def multiple_deals(test_db_session: AsyncSession) -> list[Deal]:
     deals = [
         Deal(
             crm_deal_id=2001,
-            status=DealStatus.NEW,
+            status=DealStatus.calculation,
             owner_crm_id=200,
             buyer_name="Покупатель 1",
             total_amount=10000.0,
@@ -58,7 +58,7 @@ async def multiple_deals(test_db_session: AsyncSession) -> list[Deal]:
         ),
         Deal(
             crm_deal_id=2002,
-            status=DealStatus.IN_PROGRESS,
+            status=DealStatus.deal,
             owner_crm_id=200,
             buyer_name="Покупатель 2",
             total_amount=20000.0,
@@ -67,7 +67,7 @@ async def multiple_deals(test_db_session: AsyncSession) -> list[Deal]:
         ),
         Deal(
             crm_deal_id=2003,
-            status=DealStatus.COMPLETED,
+            status=DealStatus.closed_deal,
             owner_crm_id=201,
             buyer_name="Покупатель 3",
             total_amount=30000.0,
@@ -75,7 +75,7 @@ async def multiple_deals(test_db_session: AsyncSession) -> list[Deal]:
         ),
         Deal(
             crm_deal_id=2004,
-            status=DealStatus.NEW,
+            status=DealStatus.calculation,
             owner_crm_id=200,
             buyer_name="Покупатель 4",
             total_amount=15000.0,
@@ -104,13 +104,13 @@ class TestDealGatewayCreate:
         """Создание сделки с минимальным набором обязательных полей."""
         deal = await deal_gateway.create(
             crm_deal_id=3001,
-            status=DealStatus.NEW,
+            status=DealStatus.calculation,
             owner_crm_id=300,
         )
 
         assert deal.id is not None
         assert deal.crm_deal_id == 3001
-        assert deal.status == DealStatus.NEW
+        assert deal.status == DealStatus.calculation
         assert deal.owner_crm_id == 300
         assert deal.created_date is not None
 
@@ -122,7 +122,7 @@ class TestDealGatewayCreate:
         now = datetime.now()
         deal = await deal_gateway.create(
             crm_deal_id=3002,
-            status=DealStatus.IN_PROGRESS,
+            status=DealStatus.deal,
             owner_crm_id=301,
             manager_crm_id=401,
             buyer_name="ООО Тест Покупатель",
@@ -310,7 +310,7 @@ class TestDealGatewayGetDealsForReminders:
         """Сделка без дат не должна попасть в напоминания."""
         deal = Deal(
             crm_deal_id=5001,
-            status=DealStatus.NEW,
+            status=DealStatus.calculation,
             owner_crm_id=500,
             # Без дат
         )
@@ -348,13 +348,13 @@ class TestDealGatewayUpdate:
         """Обновление нескольких полей."""
         updated_deal = await deal_gateway.update(
             deal=sample_deal,
-            status=DealStatus.IN_PROGRESS,
+            status=DealStatus.deal,
             total_amount=75000.0,
             paid_amount=25000.0,
             is_confirmed_by_manager=True,
         )
 
-        assert updated_deal.status == DealStatus.IN_PROGRESS
+        assert updated_deal.status == DealStatus.deal
         assert updated_deal.total_amount == 75000.0
         assert updated_deal.paid_amount == 25000.0
         assert updated_deal.is_confirmed_by_manager is True
