@@ -47,7 +47,7 @@ async def setup_test_db() -> AsyncGenerator:
 
 
 @pytest_asyncio.fixture(scope="function")
-async def async_client(app_with_test_db: FastAPI) -> AsyncClient:
+async def async_client(app_with_test_db: FastAPI) -> AsyncClient:  # type: ignore
     """
     Fixture для создания асинхронного клиента HTTP с подключением к FastAPI приложению.
 
@@ -56,7 +56,7 @@ async def async_client(app_with_test_db: FastAPI) -> AsyncClient:
 
     transport = ASGITransport(app=app_with_test_db)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
-        yield client
+        yield client  # type: ignore
 
 
 @pytest_asyncio.fixture(scope="function")

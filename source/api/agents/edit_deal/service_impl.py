@@ -1,4 +1,5 @@
 from langchain_openai import ChatOpenAI
+
 from source.schemas.pydantic.agents import State
 from source.services.prompts.edit_deal_prompts import EditDealAgentPrompts
 from source.api.agents.edit_deal.service_abc import EditDealAgentServiceAbc

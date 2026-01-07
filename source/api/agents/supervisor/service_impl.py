@@ -1,4 +1,5 @@
 from langchain_openai import ChatOpenAI
+
 from source.schemas.pydantic.agents import State, SupervisorDecision
 from source.db.models.choises.enum import TaskTypeChoises
 from source.services.prompts.supervisor_prompts import SupervisorPrompts
@@ -42,7 +43,9 @@ class SupervisorServiceImpl:
                 }
             )
         except Exception as e:
-            logger.error(f"[SUPERVISOR] LLM routing failed: {e}, falling back to default")
+            logger.error(
+                f"[SUPERVISOR] LLM routing failed: {e}, falling back to default"
+            )
             # Fallback к reminder_agent при ошибке
             return state.model_copy(
                 update={
