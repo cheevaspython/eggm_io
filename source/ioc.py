@@ -36,6 +36,12 @@ from source.api.agents.supervisor.service_abc import SupervisorServiceAbc
 from source.api.agents.supervisor.service_impl import SupervisorServiceImpl
 from source.api.agents.interactor_abc import AgentsInteractorAbc
 from source.api.agents.interactor_impl import AgentsInteractorImpl
+from source.db.gateways.deal.gateway_abc import DealGatewayAbc
+from source.db.gateways.deal.gateway_impl import DealGatewayImpl
+from source.db.gateways.application.gateway_abc import ApplicationGatewayAbc
+from source.db.gateways.application.gateway_impl import ApplicationGatewayImpl
+from source.db.gateways.deal_reminder.gateway_abc import DealReminderGatewayAbc
+from source.db.gateways.deal_reminder.gateway_impl import DealReminderGatewayImpl
 from source.services.prompts.confirmation_prompts import ConfirmationAgentPrompts
 from source.services.prompts.edit_deal_prompts import EditDealAgentPrompts
 from source.services.prompts.reminder_prompts import ReminderAgentPrompts
@@ -316,6 +322,33 @@ class GraphProvider(Provider):
         return workflow.compile(checkpointer=checkpointer)
 
 
+class GatewayProvider(Provider):
+    """
+    Provider для Database Gateway (репозиториев).
+    """
+
+    @provide(scope=Scope.REQUEST, provides=DealGatewayAbc)
+    def provide_deal_gateway(
+        self,
+        session: AsyncSession,
+    ) -> DealGatewayImpl:
+        return DealGatewayImpl(session=session)
+
+    @provide(scope=Scope.REQUEST, provides=ApplicationGatewayAbc)
+    def provide_application_gateway(
+        self,
+        session: AsyncSession,
+    ) -> ApplicationGatewayImpl:
+        return ApplicationGatewayImpl(session=session)
+
+    @provide(scope=Scope.REQUEST, provides=DealReminderGatewayAbc)
+    def provide_deal_reminder_gateway(
+        self,
+        session: AsyncSession,
+    ) -> DealReminderGatewayImpl:
+        return DealReminderGatewayImpl(session=session)
+
+
 def setup_di() -> AsyncContainer:
     providers = []
     providers.append(AppProvider())
@@ -329,6 +362,7 @@ def setup_di() -> AsyncContainer:
     providers.append(OpenAIProvider())
     providers.append(AgentProvider())
     providers.append(GraphProvider())
+    providers.append(GatewayProvider())
 
     container = make_async_container(
         *providers,
