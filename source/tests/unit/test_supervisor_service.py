@@ -64,7 +64,7 @@ def state_with_task_type() -> State:
         crm_user_id=100,
         user_role="manager",
         user_input="Подтверди сделку",
-        task_type=TaskTypeChoises.confirmation_agent,
+        task_type=TaskTypeChoises.confirm_agent,
     )
 
 
@@ -154,7 +154,7 @@ class TestSupervisorServiceRouting:
         fake_structured_llm = FakeChatModel(
             responses=[
                 SupervisorDecision(
-                    task_type=TaskTypeChoises.confirmation_agent,
+                    task_type=TaskTypeChoises.confirm_agent,
                     reason="Director confirmation request",
                 )
             ]
@@ -168,14 +168,14 @@ class TestSupervisorServiceRouting:
 
         result_state = await supervisor(state=state)
 
-        assert result_state.task_type == TaskTypeChoises.confirmation_agent
+        assert result_state.task_type == TaskTypeChoises.confirm_agent
 
     @pytest.mark.parametrize(
         "task_type",
         [
             TaskTypeChoises.reminder_agent,
             TaskTypeChoises.edit_deal_agent,
-            TaskTypeChoises.confirmation_agent,
+            TaskTypeChoises.confirm_agent,
         ],
     )
     async def test_routes_to_all_agent_types(
@@ -226,7 +226,7 @@ class TestSupervisorServiceStateHandling:
         result_state = await supervisor(state=state_with_task_type)
 
         # task_type должен остаться прежним
-        assert result_state.task_type == TaskTypeChoises.confirmation_agent
+        assert result_state.task_type == TaskTypeChoises.confirm_agent
         # Остальные поля тоже не должны измениться
         assert result_state.user_input == state_with_task_type.user_input
 
