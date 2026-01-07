@@ -17,9 +17,7 @@ class SimpleFakeLLM(BaseChatModel):
     current_index: int = 0
 
     def __init__(self, responses: list[str | dict | Any]):
-        super().__init__()
-        self.responses = responses
-        self.current_index = 0
+        super().__init__(responses=responses, current_index=0)
 
     def _generate(
         self,
@@ -70,9 +68,7 @@ class SimpleFakeStructuredLLM(BaseChatModel):
     current_index: int = 0
 
     def __init__(self, responses: list[Any]):
-        super().__init__()
-        self.responses = responses
-        self.current_index = 0
+        super().__init__(responses=responses, current_index=0)
 
     def _generate(
         self,
