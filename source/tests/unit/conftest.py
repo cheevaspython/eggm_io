@@ -38,12 +38,12 @@ async def setup_test_db() -> AsyncGenerator:
     Создает и удаляет все таблицы базы данных.
     """
     async with test_db_helper.engine.begin() as conn:
-        await conn.run_sync(func=Base.metadata.create_all)
+        await conn.run_sync(Base.metadata.create_all)
 
     yield
 
     async with test_db_helper.engine.begin() as conn:
-        await conn.run_sync(func=Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.drop_all)
 
 
 @pytest_asyncio.fixture(scope="function")
