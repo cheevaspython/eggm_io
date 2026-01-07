@@ -15,10 +15,13 @@ async def handle_text_message(
     Обработчик текстовых сообщений от пользователей.
     Направляет сообщение в систему агентов для обработки.
     """
-    logger.info(
-        f"[TELEGRAM] Text message from user_id={message.from_user.id}, "
-        f"text_length={len(message.text or '')}"
-    )
+    if message and message.from_user:
+        logger.info(
+            f"[TELEGRAM] Text message from user_id={message.from_user.id}, "
+            f"text_length={len(message.text or '')}"
+        )
+    else:
+        logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     # TODO: Интеграция с AgentsInteractor
     # 1. Получить пользователя из БД по telegram_id
@@ -27,8 +30,7 @@ async def handle_text_message(
     # 4. Отправить результат пользователю
 
     await message.answer(
-        "💬 Получил ваше сообщение!\n"
-        "(Обработка агентами в разработке)"
+        "💬 Получил ваше сообщение!\n(Обработка агентами в разработке)"
     )
 
 
@@ -47,10 +49,7 @@ async def handle_confirmation_callback(
 
     # TODO: Обработка подтверждений через агента
     await callback.answer("Подтверждение принято!")
-    await callback.message.edit_text(
-        f"✅ Подтверждено\n"
-        f"(Обработка в разработке)"
-    )
+    await callback.message.edit_text(f"✅ Подтверждено\n(Обработка в разработке)")
 
 
 @router.callback_query(F.data.startswith("edit_"))
@@ -68,10 +67,7 @@ async def handle_edit_callback(
 
     # TODO: Обработка редактирования через агента
     await callback.answer()
-    await callback.message.answer(
-        "✏️ Начинаем редактирование\n"
-        "(Функция в разработке)"
-    )
+    await callback.message.answer("✏️ Начинаем редактирование\n(Функция в разработке)")
 
 
 @router.callback_query(F.data.startswith("view_"))
@@ -89,10 +85,7 @@ async def handle_view_callback(
 
     # TODO: Получение и отображение деталей
     await callback.answer()
-    await callback.message.answer(
-        "👁️ Загружаю детали...\n"
-        "(Функция в разработке)"
-    )
+    await callback.message.answer("👁️ Загружаю детали...\n(Функция в разработке)")
 
 
 @router.callback_query()

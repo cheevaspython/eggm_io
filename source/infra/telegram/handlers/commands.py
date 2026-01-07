@@ -1,7 +1,6 @@
-from aiogram import Router, F
+from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
-from dishka import FromDishka
 
 from source.config.logging import logger
 
@@ -13,10 +12,13 @@ async def cmd_start(message: Message) -> None:
     """
     Обработчик команды /start
     """
-    logger.info(
-        f"[TELEGRAM] /start from user_id={message.from_user.id}, "
-        f"username={message.from_user.username}"
-    )
+    if message and message.from_user:
+        logger.info(
+            f"[TELEGRAM] /start from user_id={message.from_user.id}, "
+            f"username={message.from_user.username}"
+        )
+    else:
+        logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     welcome_text = (
         "👋 Добро пожаловать в систему управления сделками!\n\n"
@@ -36,9 +38,10 @@ async def cmd_help(message: Message) -> None:
     """
     Обработчик команды /help
     """
-    logger.info(
-        f"[TELEGRAM] /help from user_id={message.from_user.id}"
-    )
+    if message and message.from_user:
+        logger.info(f"[TELEGRAM] /help from user_id={message.from_user.id}")
+    else:
+        logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     help_text = (
         "📋 <b>Доступные команды:</b>\n\n"
@@ -61,15 +64,14 @@ async def cmd_deals(message: Message) -> None:
     Обработчик команды /deals
     Показывает список сделок пользователя
     """
-    logger.info(
-        f"[TELEGRAM] /deals from user_id={message.from_user.id}"
-    )
+
+    if message and message.from_user:
+        logger.info(f"[TELEGRAM] /deals from user_id={message.from_user.id}")
+    else:
+        logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     # TODO: Интеграция с агентом для получения списка сделок
-    await message.answer(
-        "📊 Загружаю ваши сделки...\n"
-        "(Функция в разработке)"
-    )
+    await message.answer("📊 Загружаю ваши сделки...\n(Функция в разработке)")
 
 
 @router.message(Command("applications"))
@@ -78,15 +80,13 @@ async def cmd_applications(message: Message) -> None:
     Обработчик команды /applications
     Показывает список заявок пользователя
     """
-    logger.info(
-        f"[TELEGRAM] /applications from user_id={message.from_user.id}"
-    )
+    if message and message.from_user:
+        logger.info(f"[TELEGRAM] /applications from user_id={message.from_user.id}")
+    else:
+        logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     # TODO: Интеграция с агентом для получения списка заявок
-    await message.answer(
-        "📝 Загружаю ваши заявки...\n"
-        "(Функция в разработке)"
-    )
+    await message.answer("📝 Загружаю ваши заявки...\n(Функция в разработке)")
 
 
 @router.message(Command("reminders"))
@@ -95,15 +95,13 @@ async def cmd_reminders(message: Message) -> None:
     Обработчик команды /reminders
     Показывает активные напоминания
     """
-    logger.info(
-        f"[TELEGRAM] /reminders from user_id={message.from_user.id}"
-    )
+    if message and message.from_user:
+        logger.info(f"[TELEGRAM] /reminders from user_id={message.from_user.id}")
+    else:
+        logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     # TODO: Интеграция с агентом напоминаний
-    await message.answer(
-        "⏰ Загружаю ваши напоминания...\n"
-        "(Функция в разработке)"
-    )
+    await message.answer("⏰ Загружаю ваши напоминания...\n(Функция в разработке)")
 
 
 @router.message(Command("stats"))
@@ -112,12 +110,10 @@ async def cmd_stats(message: Message) -> None:
     Обработчик команды /stats
     Показывает статистику пользователя
     """
-    logger.info(
-        f"[TELEGRAM] /stats from user_id={message.from_user.id}"
-    )
+    if message and message.from_user:
+        logger.info(f"[TELEGRAM] /stats from user_id={message.from_user.id}")
+    else:
+        logger.debug("[TELEGRAM] /start error - message.from_user is None")
 
     # TODO: Интеграция с агентом аналитики
-    await message.answer(
-        "📈 Загружаю вашу статистику...\n"
-        "(Функция в разработке)"
-    )
+    await message.answer("📈 Загружаю вашу статистику...\n(Функция в разработке)")
