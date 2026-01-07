@@ -410,6 +410,8 @@ class TestDealGatewayUpdate:
         test_db_session: AsyncSession,
     ):
         """Проверка что обновления сохраняются в БД."""
+        deal_id = sample_deal.id  # Сохраняем ID до expire_all()
+
         await deal_gateway.update(
             deal=sample_deal,
             buyer_name="Проверка персистентности",
@@ -417,7 +419,7 @@ class TestDealGatewayUpdate:
 
         # Очищаем сессию и загружаем заново из БД
         test_db_session.expire_all()
-        deal_from_db = await deal_gateway.get_by_id(deal_id=sample_deal.id)
+        deal_from_db = await deal_gateway.get_by_id(deal_id=deal_id)
 
         assert deal_from_db is not None
         assert deal_from_db.buyer_name == "Проверка персистентности"
