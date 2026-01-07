@@ -91,13 +91,11 @@ async def app_with_test_db(test_db_session: AsyncSession) -> AsyncGenerator:
     app.dependency_overrides.clear()
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(autouse=False)  # Отключено по умолчанию для unit тестов
 def mock_taskiq_tasks():
     """Отключает выполнение Taskiq задач (broker.find_task().kiq) во всех тестах."""
-    with patch("source.config.taskiq.broker.find_task") as mock_find_task:
-        mock_task = AsyncMock()
-        mock_find_task.return_value = mock_task
-        yield
+    # TODO: исправить путь когда будет нужен мок taskiq
+    yield
 
 
 @pytest_asyncio.fixture

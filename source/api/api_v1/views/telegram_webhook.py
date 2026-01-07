@@ -1,6 +1,8 @@
+from typing import Optional
+
 from aiogram import Bot
 from aiogram.types import Update
-from dishka.integrations.fastapi import FromDishka
+from dishka.integrations.fastapi import FromDishka, inject
 from fastapi import APIRouter, Request
 
 from source.config.logging import logger
@@ -10,6 +12,7 @@ router = APIRouter(prefix="/telegram", tags=["telegram"])
 
 
 @router.post("/webhook")
+@inject
 async def telegram_webhook(
     request: Request,
     bot: FromDishka[Bot],
