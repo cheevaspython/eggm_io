@@ -1,0 +1,875 @@
+/usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:208: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+[1m============================= test session starts ==============================[0m
+platform linux -- Python 3.12.12, pytest-8.3.4, pluggy-1.5.0
+rootdir: /eggm_io
+configfile: pyproject.toml
+plugins: asyncio-0.24.0, anyio-4.8.0, langsmith-0.6.1
+asyncio: mode=Mode.AUTO, default_loop_scope=None
+[1mcollecting ... [0m[1mcollecting 0 items                                                             [0m[1mcollected 31 items                                                             [0m
+
+source/tests/unit/test_deal_gateway.py [31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mE[0m[32m.[0m[31mE[0m[32m.[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mF[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31mE[0m[31m   [100%][0m
+
+==================================== ERRORS ====================================
+[31m[1m__________ ERROR at setup of TestDealGatewayGet.test_get_by_id_exists __________[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2f34050>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+[31m[1m________ ERROR at setup of TestDealGatewayGet.test_get_by_crm_id_exists ________[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb31138c0>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+[31m[1m___ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_exists ___[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff7980>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m___ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_empty ____[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb3110f80>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_with_limit[1] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb3112ba0>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_with_limit[2] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb3112660>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_with_limit[5] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb261eb10>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetUserDeals.test_get_user_deals_with_limit[10] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb317bf20>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_default_7_days _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff6e70>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_different_periods[1] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff7980>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_different_periods[3] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff6f00>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_different_periods[5] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff6900>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_different_periods[10] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff74d0>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mmultiple_deals[39;49;00m(test_db_session: AsyncSession) -> [96mlist[39;49;00m[Deal]:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает несколько сделок для тестирования фильтрации и сортировки."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deals = [[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2001[39;49;00m,[90m[39;49;00m
+>               status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 1[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m10000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+                payment_date=now + timedelta(days=[94m5[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2002[39;49;00m,[90m[39;49;00m
+                status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 2[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m20000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+                unloading_date=now + timedelta(days=[94m4[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2003[39;49;00m,[90m[39;49;00m
+                status=DealStatus.COMPLETED,[90m[39;49;00m
+                owner_crm_id=[94m201[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 3[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m30000.0[39;49;00m,[90m[39;49;00m
+                loading_date=now + timedelta(days=[94m10[39;49;00m),  [90m# За пределами 7 дней[39;49;00m[90m[39;49;00m
+            ),[90m[39;49;00m
+            Deal([90m[39;49;00m
+                crm_deal_id=[94m2004[39;49;00m,[90m[39;49;00m
+                status=DealStatus.NEW,[90m[39;49;00m
+                owner_crm_id=[94m200[39;49;00m,[90m[39;49;00m
+                buyer_name=[33m"[39;49;00m[33mПокупатель 4[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+                total_amount=[94m15000.0[39;49;00m,[90m[39;49;00m
+                delivery_date_from=now + timedelta(days=[94m2[39;49;00m),[90m[39;49;00m
+            ),[90m[39;49;00m
+        ][90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:52: AttributeError
+[31m[1m_______ ERROR at setup of TestDealGatewayUpdate.test_update_single_field _______[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff6870>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+[31m[1m_____ ERROR at setup of TestDealGatewayUpdate.test_update_multiple_fields ______[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff7410>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayUpdate.test_update_different_fields[buyer_name-\u041d\u043e\u0432\u043e\u0435 \u0438\u043c\u044f] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff71d0>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayUpdate.test_update_different_fields[total_amount-99999.99] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff7110>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayUpdate.test_update_different_fields[is_confirmed_by_manager-True] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb269fec0>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayUpdate.test_update_different_fields[is_confirmed_by_director-True] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb269dfd0>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+[31m[1m_ ERROR at setup of TestDealGatewayUpdate.test_update_different_fields[comment-\u041d\u043e\u0432\u044b\u0439 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439] _[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2f36180>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+[31m[1m__________ ERROR at setup of TestDealGatewayUpdate.test_update_dates ___________[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff6e10>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+[31m[1m______ ERROR at setup of TestDealGatewayUpdate.test_update_persists_in_db ______[0m
+
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb269f5f0>
+
+    [0m[37m@pytest[39;49;00m.fixture[90m[39;49;00m
+    [94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92msample_deal[39;49;00m(test_db_session: AsyncSession) -> Deal:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создает тестовую сделку в БД."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m1001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m100[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m0.0[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mFalse[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_director=[94mFalse[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:30: AttributeError
+=================================== FAILURES ===================================
+[31m[1m________________ TestDealGatewayCreate.test_create_minimal_deal ________________[0m
+
+self = <source.tests.unit.test_deal_gateway.TestDealGatewayCreate object at 0xffffb317b8f0>
+deal_gateway = <source.api.interfaces.deal.gateway_impl.DealGatewayImpl object at 0xffffb3113e00>
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb3173740>
+
+    [0m[94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mtest_create_minimal_deal[39;49;00m([90m[39;49;00m
+        [96mself[39;49;00m,[90m[39;49;00m
+        deal_gateway: DealGatewayImpl,[90m[39;49;00m
+        test_db_session: AsyncSession,[90m[39;49;00m
+    ):[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создание сделки с минимальным набором обязательных полей."""[39;49;00m[90m[39;49;00m
+        deal = [94mawait[39;49;00m deal_gateway.create([90m[39;49;00m
+            crm_deal_id=[94m3001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m300[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:107: AttributeError
+[31m[1m_________________ TestDealGatewayCreate.test_create_full_deal __________________[0m
+
+self = <source.tests.unit.test_deal_gateway.TestDealGatewayCreate object at 0xffffb317bec0>
+deal_gateway = <source.api.interfaces.deal.gateway_impl.DealGatewayImpl object at 0xffffb2f35e20>
+
+    [0m[94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mtest_create_full_deal[39;49;00m([90m[39;49;00m
+        [96mself[39;49;00m,[90m[39;49;00m
+        deal_gateway: DealGatewayImpl,[90m[39;49;00m
+    ):[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Создание сделки со всеми полями."""[39;49;00m[90m[39;49;00m
+        now = datetime.now()[90m[39;49;00m
+        deal = [94mawait[39;49;00m deal_gateway.create([90m[39;49;00m
+            crm_deal_id=[94m3002[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.IN_PROGRESS,[90m[39;49;00m
+            owner_crm_id=[94m301[39;49;00m,[90m[39;49;00m
+            manager_crm_id=[94m401[39;49;00m,[90m[39;49;00m
+            buyer_name=[33m"[39;49;00m[33mООО Тест Покупатель[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            seller_name=[33m"[39;49;00m[33mООО Тест Продавец[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            total_amount=[94m100000.0[39;49;00m,[90m[39;49;00m
+            paid_amount=[94m50000.0[39;49;00m,[90m[39;49;00m
+            loading_date=now + timedelta(days=[94m1[39;49;00m),[90m[39;49;00m
+            unloading_date=now + timedelta(days=[94m3[39;49;00m),[90m[39;49;00m
+            payment_date=now + timedelta(days=[94m7[39;49;00m),[90m[39;49;00m
+            comment=[33m"[39;49;00m[33mТестовая сделка[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            is_confirmed_by_manager=[94mTrue[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'IN_PROGRESS'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:125: AttributeError
+[31m[1m__ TestDealGatewayGetDealsForReminders.test_get_deals_for_reminders_no_dates ___[0m
+
+self = <source.tests.unit.test_deal_gateway.TestDealGatewayGetDealsForReminders object at 0xffffb3184080>
+deal_gateway = <source.api.interfaces.deal.gateway_impl.DealGatewayImpl object at 0xffffb266aa50>
+test_db_session = <sqlalchemy.ext.asyncio.session.AsyncSession object at 0xffffb2ff7440>
+
+    [0m[94masync[39;49;00m [94mdef[39;49;00m[90m [39;49;00m[92mtest_get_deals_for_reminders_no_dates[39;49;00m([90m[39;49;00m
+        [96mself[39;49;00m,[90m[39;49;00m
+        deal_gateway: DealGatewayImpl,[90m[39;49;00m
+        test_db_session: AsyncSession,[90m[39;49;00m
+    ):[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Сделка без дат не должна попасть в напоминания."""[39;49;00m[90m[39;49;00m
+        deal = Deal([90m[39;49;00m
+            crm_deal_id=[94m5001[39;49;00m,[90m[39;49;00m
+>           status=DealStatus.NEW,[90m[39;49;00m
+            owner_crm_id=[94m500[39;49;00m,[90m[39;49;00m
+            [90m# Без дат[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+[1m[31mE       AttributeError: type object 'DealStatus' has no attribute 'NEW'[0m
+
+[1m[31msource/tests/unit/test_deal_gateway.py[0m:313: AttributeError
+[33m=============================== warnings summary ===============================[0m
+source/tests/unit/test_deal_gateway.py::TestDealGatewayCreate::test_create_minimal_deal
+  /usr/local/lib/python3.12/site-packages/pytest_asyncio/plugin.py:783: DeprecationWarning: The event_loop fixture provided by pytest-asyncio has been redefined in
+  /eggm_io/source/tests/unit/conftest.py:23
+  Replacing the event_loop fixture with a custom implementation is deprecated
+  and will lead to errors in the future.
+  If you want to request an asyncio event loop with a scope other than function
+  scope, use the "scope" argument to the asyncio mark when marking the tests.
+  If you want to return different types of event loops, use the event_loop_policy
+  fixture.
+  
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+[36m[1m=========================== short test summary info ============================[0m
+[31mFAILED[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayCreate::test_create_minimal_deal[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mFAILED[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayCreate::test_create_full_deal[0m - AttributeError: type object 'DealStatus' has no attribute 'IN_PROGRESS'
+[31mFAILED[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_no_dates[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGet::test_get_by_id_exists[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGet::test_get_by_crm_id_exists[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_exists[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_empty[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_with_limit[1][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_with_limit[2][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_with_limit[5][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetUserDeals::test_get_user_deals_with_limit[10][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_default_7_days[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_different_periods[1][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_different_periods[3][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_different_periods[5][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayGetDealsForReminders::test_get_deals_for_reminders_different_periods[10][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_single_field[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_multiple_fields[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_different_fields[buyer_name-\u041d\u043e\u0432\u043e\u0435 \u0438\u043c\u044f][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_different_fields[total_amount-99999.99][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_different_fields[is_confirmed_by_manager-True][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_different_fields[is_confirmed_by_director-True][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_different_fields[comment-\u041d\u043e\u0432\u044b\u0439 \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439][0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_dates[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31mERROR[0m source/tests/unit/test_deal_gateway.py::[1mTestDealGatewayUpdate::test_update_persists_in_db[0m - AttributeError: type object 'DealStatus' has no attribute 'NEW'
+[31m============== [31m[1m3 failed[0m, [32m6 passed[0m, [33m1 warning[0m, [31m[1m22 errors[0m[31m in 7.23s[0m[31m ===============[0m
